@@ -7,7 +7,11 @@ typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseCl
 
 int main(int argc, char** argv){
   // Initialize the simple_navigation_goals node
-  ros::init(argc, argv, "simple_navigation_goals");
+  ros::init(argc, argv, "pick_objects");
+  ros::NodeHandle n;
+  // Robot goal position params
+  n.setParam("first_goal_reached", false);
+  n.setParam("second_goal_reached", false);
 
   //tell the action client that we want to spin a thread by default
   MoveBaseClient ac("move_base", true);
@@ -26,43 +30,45 @@ int main(int argc, char** argv){
   // Define a position and orientation for the robot to reach
   goal.target_pose.pose.position.x = 2.0;
   goal.target_pose.pose.position.y = 2.0;
-  goal.target_pose.pose.orientation.w = 0;
+  goal.target_pose.pose.orientation.w = 1.0;
 
    // Send the goal position and orientation for the robot to reach
-  ROS_INFO("Sending goal");
+  ROS_INFO("Sending goal pick up destination");
   ac.sendGoal(goal);
 
   // Wait an infinite time for the results
   ac.waitForResult();
 
   // Check if the robot reached its goal
-  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-    ROS_INFO("Hooray, the base moved 1 meter forward");
+  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
+    ROS_INFO("Hooray, the pick up destination has been reached");
+    n.setParam("first_goal_reached", true);
+}
   else
-    ROS_INFO("The base failed to move forward 1 meter for some reason");
+    ROS_INFO("The pick up destination failed to be reached");
 
-  // Wait 5 sec for move_base action server to come up
-  while(!ac.waitForServer(ros::Duration(5.0))){
-    ROS_INFO("Waiting for the move_base action server to come up");
-  }
+  // Wait 5 sec
+  ros::Duration(5.0).sleep();
 
   // Define a position and orientation for the robot to reach
-  goal.target_pose.pose.position.x = 5.0;
-  goal.target_pose.pose.position.y = 5.0;
-  goal.target_pose.pose.orientation.w = 0;
+  goal.target_pose.pose.position.x = 3.0;
+  goal.target_pose.pose.position.y = -3.0;
+  goal.target_pose.pose.orientation.w = 1.0;
 
    // Send the goal position and orientation for the robot to reach
-  ROS_INFO("Sending goal");
+  ROS_INFO("Sending goal drop off destination");
   ac.sendGoal(goal);
 
   // Wait an infinite time for the results
   ac.waitForResult();
 
   // Check if the robot reached its goal
-  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED)
-    ROS_INFO("Hooray, the base moved 1 meter forward");
+  if(ac.getState() == actionlib::SimpleClientGoalState::SUCCEEDED) {
+    ROS_INFO("Hooray, the drop off destination has been reached");
+    n.setParam("second_goal_reached", true);
+}
   else
-    ROS_INFO("The base failed to move forward 1 meter for some reason");
+    ROS_INFO("The drop off destination failed to be reached");
 
   return 0;
 }
