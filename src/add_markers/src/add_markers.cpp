@@ -58,8 +58,8 @@ marker_two.action = visualization_msgs::Marker::ADD;
 
     // Set the pose of the marker.  This is a full 6DOF pose relative to the frame/time specified in the header
 // %Tag(POSE)%
-    marker.pose.position.x = 2.0;
-    marker.pose.position.y = 2.0;
+    marker.pose.position.x = 0.0;
+    marker.pose.position.y = -3.0;
     marker.pose.position.z = 0.0;
     marker.pose.orientation.x = 0.0;
     marker.pose.orientation.y = 0.0;
@@ -81,7 +81,7 @@ marker_two.action = visualization_msgs::Marker::ADD;
     marker.color.b = 0.0f;
     marker.color.a = 1.0;
 // %EndTag(COLOR)%
-	    marker_two.pose.position.x = 3.0;
+	    marker_two.pose.position.x = -3.0;
 	    marker_two.pose.position.y = -3.0;
 	    marker_two.pose.position.z = 0.0;
 	    marker_two.pose.orientation.x = 0.0;
