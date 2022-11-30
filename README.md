@@ -2,8 +2,6 @@
 
 https://user-images.githubusercontent.com/92162018/204540114-0a0f4f7b-1716-4ec9-9021-a87ab6ba539b.mp4
 
-Brief write up about packages used for localization, mapping and navigation:
-
 ## Mapping & Localization
 
 For localization we used the AMCL package which utilizes Adaptive Monte Carlo Localization (AMCL) which uses a particle filter to track the pose of a robot against a known map. 
