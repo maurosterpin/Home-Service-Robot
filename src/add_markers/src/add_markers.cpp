@@ -102,7 +102,7 @@ marker_two.action = visualization_msgs::Marker::ADD;
     marker.lifetime = ros::Duration();
 	marker_two.lifetime = ros::Duration();
 // %EndTag(LIFETIME)%
-    ros::Duration(2).sleep();
+    ros::Duration(4).sleep();
     marker_pub.publish(marker);
 while(true) {
 	  n.getParam("first_goal_reached", first_goal_reached);
