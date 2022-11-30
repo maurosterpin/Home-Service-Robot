@@ -15,12 +15,12 @@ Teleop was used to control the robot and navigate it around our enviornment so t
 
 For navigation we used the ROS navigation stack which creates a path for the robot based on Dijkstra's algorithm which is a variant of the Uniform Cost Search algorithm, which creates a path to the goal position while avoiding obstacles on the path.
 
-The code for the sending a goal to the robot is added to the pick_objects.cpp.
+The code for sending a goal to the robot is added to the pick_objects.cpp.
 
 The first goal is our desired pickup position and the second goal is our desired drop off position. The robot travels to the desired pickup zone, displays a message that it reached its destination, waits 5 seconds, travels to the desired drop off zone, and displays a message that it has reached the drop off zone. 
 
 ## Additional info
-add_markers package was used to show the green cube which represents a package which the robot is supposed to pick up and drop off. Add_markers  shows the pick up marker until the robot reaches its position which add_markers node knows because it receives information from the pick_objects node when the robot reaches a certain position, after the robot picks up the package it naviages to the drop off position and once the drop off position is reached add_markers node shows the seond marker at the drop off position.
+Add_markers package was used to show the green cube which represents a package which the robot is supposed to pick up and drop off. Add_markers shows the pick up marker until the robot reaches its position which add_markers node knows because it receives information from the pick_objects node when the robot reaches a certain position, after the robot picks up the package it navigates to the drop off position and once the drop off position is reached add_markers node shows the second marker at the drop off position.
 
 
 
