@@ -24,9 +24,8 @@ int main( int argc, char** argv )
 // %EndTag(SHAPE_INIT)%
 
 // %Tag(MARKER_INIT)%
-
-  
-    ROS_INFO("Add markers started");		
+  while (ros::ok())
+  {
     visualization_msgs::Marker marker;
     visualization_msgs::Marker marker_two;
     // Set the frame ID and timestamp.  See the TF tutorials for information on these.
@@ -105,22 +104,37 @@ marker_two.action = visualization_msgs::Marker::ADD;
 // %EndTag(LIFETIME)%
     ros::Duration(4).sleep();
     marker_pub.publish(marker);
-
+while(true) {
+	  n.getParam("first_goal_reached", first_goal_reached);
+	  n.getParam("second_goal_reached", second_goal_reached);
 	  
-	  
-    ros::Duration(5).sleep();
+    if(first_goal_reached == true) {
 	ROS_INFO("First goal reached");	
 	marker.action = visualization_msgs::Marker::DELETE;
         marker_pub.publish(marker);
+    }
     
-    
-    ros::Duration(5).sleep();
+    if(second_goal_reached == true) {
  		ROS_INFO("Second goal reached");
 		marker_pub.publish(marker_two);
+    }
+}
     
 
+    // Publish the marker
+// %Tag(PUBLISH)%
+    while (marker_pub.getNumSubscribers() < 1)
+    {
+      if (!ros::ok())
+      {
+        return 0;
+      }
+      ROS_WARN_ONCE("Please create a subscriber to the marker");
+      sleep(1);
+    }
 // %EndTag(PUBLISH)%
-
+	r.sleep();
+  }
 }
 // %EndTag(FULLTEXT)%
 
